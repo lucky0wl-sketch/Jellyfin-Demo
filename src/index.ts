@@ -27,7 +27,7 @@ async function main() {
   // Get 15 most recently watched episodes
   const episodes = await getItemsApi(api).getItems({
     userId,
-    includeItemTypes: [BaseItemKind.Episode],
+    includeItemTypes: [BaseItemKind.Episode, BaseItemKind.Series],
     isPlayed: true,
     recursive: true,
     sortBy: [ItemSortBy.DatePlayed],
@@ -38,8 +38,10 @@ async function main() {
 
   console.log('\nRecently watched episodes:');
   if (episodes.data.Items) {
+    // console.log(episodes.data.Items)
     episodes.data.Items.forEach(item => {
-      console.log(`- ${item.Name}`);
+      console.log(`- ${item.Name} - ${item.SeriesName}`);
+
     });
   } else {
     console.log('No recent episodes found.');
